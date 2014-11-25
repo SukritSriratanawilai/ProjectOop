@@ -47,12 +47,14 @@ class Egg(object):
         pass
 
 class Bomb(object):
-    def __init__(self, arg):
-        super(Bomb, self).__init__()
-        self.arg = arg
+    def __init__(self, radius, color, pos):
+        self.x = pos[0]
+        self.y = pos[1]
+        self.radius = radius
+        self.color = color
 
-    def render():
-        pass
+    def render(self, surface):
+        pygame.draw.circle(surface, self.color, (self.x,self.y), self.radius, 0)
 
     def newPos():
         pass
