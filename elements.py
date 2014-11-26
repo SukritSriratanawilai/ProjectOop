@@ -44,16 +44,13 @@ class Player(object):
         return self.y
 
 class Body(object):
-    def __init__(self):
-        self.x = 0
-        self.y = 0
-        self.born = False
+    def __init__(self,color):
+        self.x = 25
+        self.y = 25
+        self.color = color
 
-    def render(self, x, y):   
-        if self.born:
-            self.x = x
-            self.y = y
-            pygame.draw.rect(surface,self.color,(self.x,self.y,25,25))    
+    def render(self, surface):   
+        pygame.draw.rect(surface,self.color,(self.x,self.y,25,25))    
 
     def update(self,player):
         pass

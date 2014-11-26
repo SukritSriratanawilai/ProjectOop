@@ -63,7 +63,7 @@ class SnakeGame(SimpleGame):
             self.bomb.newPos(800,600)
             self.score+=1
             self.write_score()
-            body = Body()
+            body = Body(SnakeGame.WHITE)
             self.bodyArray.append(body)
             for x in range(0,len(self.bodyArray)):
                 print x
@@ -89,6 +89,18 @@ class SnakeGame(SimpleGame):
         self.egg.render(surface)
         self.bomb.render(surface)
         surface.blit(self.show_score, (10,10))
+        for x in range(0,len(self.bodyArray)):
+            self.bodyArray[x].render(surface)
+            #if x == 0:
+             #   if self.player.vx != 0:
+              #      self.bodyArray[x].render(surface , self.player.getX()+self.player.vx , self.player.getY())
+               # if self.player.vy != 0:
+                #    self.bodyArray[x].render(surface , self.player.getX() , self.player.getY()+self.player.vy)
+            #else :
+             #   if self.player.vx != 0:
+              #      self.bodyArray[x].render(surface , self.bodyArray[x-1].x+self.player.vx , self.bodyArray[x-1].y)
+               # if self.player.vy != 0:
+                #    self.bodyArray[x].render(surface , self.bodyArray[x-1].x , self.bodyArray[x-1].y+self.player.vy)
         #print "render"
 
     def write_score(self):
