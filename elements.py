@@ -3,6 +3,7 @@ from pygame.locals import *
 import random
 import time
 from threading import Thread
+#random.randint(1, 10)  # Integer from 1 to 10, endpoints included
 
 class Player(object):
     
@@ -30,8 +31,11 @@ class Player(object):
         self.vx = x
         self.vy = y
 
-    def catch():
-        pass    
+    def catch_egg(self, Egg):
+        return (self.x - self.width/2.0) < Egg.x < (self.x + self.width) and (self.y - self.width/2.0) < Egg.y < (self.y + self.width)
+
+    def catch_bomb(self, Bomb):
+        return (self.x - self.width/2.0) < Bomb.x < (self.x + self.width) and (self.y - self.width/2.0) < Bomb.y < (self.y + self.width)
 
 class Egg(object):
     def __init__(self, radius, color, pos):

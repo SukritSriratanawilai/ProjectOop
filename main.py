@@ -2,6 +2,7 @@ import pygame
 from pygame.locals import *
 from gamelib import SimpleGame
 from elements import *
+import random
 
 class SnakeGame(SimpleGame):
     
@@ -12,40 +13,59 @@ class SnakeGame(SimpleGame):
 
     def __init__(self):
         super(SnakeGame, self).__init__('Snake', SnakeGame.BLACK)
+        self.initPlayer()
+        self.initEgg()
+        self.initBomb()
+        self.score = 0
+
+    def initPlayer(self):
         self.player = Player(pos = (0,0),
                              color = SnakeGame.WHITE,
                              width = 25,
-                             speed = (2.5,0))
+                             speed = (5,0))
+
+    def initEgg(self):
         self.egg  = Egg( radius=10, 
                          color=SnakeGame.YELLOW, 
                          pos=(100,100))
+
+    def initBomb(self):
         self.bomb = Bomb(radius=10, 
                          color=SnakeGame.RED, 
                          pos=(200,200))
 
     def init(self):
         super(SnakeGame, self).init()
+        self.write_score()
 
     def update(self):
         self.player.update()
         self.checkInputKey()
+        if self.player.catch_egg(self.egg):
+            print"catch"
+        if self.player.catch_bomb(self.bomb):
+            print"catch bomb"
        # print "update"
 
     def checkInputKey(self):
         if self.is_key_pressed(K_UP):
-            self.player.setSpeed(0,-2.5)
+            self.player.setSpeed(0,-5)
         elif self.is_key_pressed(K_DOWN):
-            self.player.setSpeed(0,2.5)
+            self.player.setSpeed(0,5)
         elif self.is_key_pressed(K_RIGHT):
-            self.player.setSpeed(2.5,0)
+            self.player.setSpeed(5,0)
         elif self.is_key_pressed(K_LEFT):
-            self.player.setSpeed(-2.5,0)
+            self.player.setSpeed(-5,0)
 
     def render(self, surface):
         self.player.render(surface)
         self.egg.render(surface)
         self.bomb.render(surface)
+        surface.blit(self.show_score, (10,10))
         #print "render"
+
+    def write_score(self):
+        self.show_score = self.font.render("Score = %d" % self.score, 0, SnakeGame.WHITE)
 
 def main():
     game = SnakeGame()
