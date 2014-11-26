@@ -6,8 +6,8 @@ class SimpleGame(object):
     def __init__(self,
                  title,
                  background_color,
-                 window_size=(640,480),
-                 fps=60):
+                 window_size=(800,600),
+                 fps=25):
         self.title = title
         self.window_size = window_size
         self.fps = fps

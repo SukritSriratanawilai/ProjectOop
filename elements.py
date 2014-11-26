@@ -47,8 +47,9 @@ class Egg(object):
     def render(self, surface):
         pygame.draw.circle(surface, self.color, (self.x,self.y), self.radius, 0)
 
-    def newPos():
-        pass
+    def newPos(self,x,y):
+        self.x = random.randint(25,x)
+        self.y = random.randint(25,y)
 
 class Bomb(object):
     def __init__(self, radius, color, pos):
@@ -60,8 +61,9 @@ class Bomb(object):
     def render(self, surface):
         pygame.draw.circle(surface, self.color, (self.x,self.y), self.radius, 0)
 
-    def newPos():
-        pass
+    def newPos(self,x,y):
+        self.x = random.randint(25,x)
+        self.y = random.randint(25,y)
     
 #class MyThread(Thread):
 #    def __init__(self,player, surface):
