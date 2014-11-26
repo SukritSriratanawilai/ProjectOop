@@ -7,7 +7,7 @@ class SimpleGame(object):
                  title,
                  background_color,
                  window_size=(800,600),
-                 fps=25):
+                 fps=30):
         self.title = title
         self.window_size = window_size
         self.fps = fps

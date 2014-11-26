@@ -37,6 +37,32 @@ class Player(object):
     def catch_bomb(self, Bomb):
         return (self.x - self.width/2.0) < Bomb.x < (self.x + self.width) and (self.y - self.width/2.0) < Bomb.y < (self.y + self.width)
 
+    def getX(self):
+        return self.x
+
+    def getY(self):
+        return self.y
+
+class Body(object):
+    def __init__(self):
+        self.x = 0
+        self.y = 0
+        self.born = False
+
+    def render(self, x, y):   
+        if self.born:
+            self.x = x
+            self.y = y
+            pygame.draw.rect(surface,self.color,(self.x,self.y,25,25))    
+
+    def update(self,player):
+        pass
+    def getY(self):
+        return self.y
+    
+    def getX(self):
+        return self.x
+
 class Egg(object):
     def __init__(self, radius, color, pos):
         self.x = pos[0]

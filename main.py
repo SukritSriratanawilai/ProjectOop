@@ -10,13 +10,20 @@ class SnakeGame(SimpleGame):
     WHITE = pygame.Color('white')
     YELLOW = pygame.Color('yellow')
     RED = pygame.Color('red')
-    V = 5
+    V = 25
     def __init__(self):
         super(SnakeGame, self).__init__('Snake', SnakeGame.BLACK, window_size=(800,600))
         self.initPlayer()
         self.initEgg()
         self.initBomb()
+        self.init()
         self.score = 0
+        self.t = 10
+        self.initbody()
+        self.write_score()
+
+    def initbody(self):
+        self.bodyArray = []
 
     def initPlayer(self):
         self.player = Player(pos = (0,0),
@@ -36,20 +43,36 @@ class SnakeGame(SimpleGame):
 
     def init(self):
         super(SnakeGame, self).init()
-        self.write_score()
+        
 
     def update(self):
-        self.player.update()
+        self.t -= 1
+        #self.body.update(self.player)
+        if self.t <= 0:
+            self.player.update()
+            self.t = 10
         self.checkInputKey()
+        self.catch_egg()
+        self.catch_bomb()
+       # print "update"
+
+    def catch_egg(self):
         if self.player.catch_egg(self.egg):
-            print"catch"
+            #print"catch"
             self.egg.newPos(800,600)
             self.bomb.newPos(800,600)
             self.score+=1
+            self.write_score()
+            body = Body()
+            self.bodyArray.append(body)
+            for x in range(0,len(self.bodyArray)):
+                print x
+            #print self.score
+
+    def catch_bomb(self):
         if self.player.catch_bomb(self.bomb):
             self.terminate()
-            print"catch bomb"
-       # print "update"
+            #print"catch bomb"
 
     def checkInputKey(self):
         if self.is_key_pressed(K_UP):
