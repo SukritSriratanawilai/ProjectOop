@@ -49,7 +49,12 @@ class SnakeGame(SimpleGame):
         self.t -= 1
         #self.body.update(self.player)
         if self.t <= 0:
+            temp = (self.player.x, self.player.y)
             self.player.update()
+            for x in range(0,len(self.bodyArray)):
+                temp1 = (self.bodyArray[x].x, self.bodyArray[x].y)
+                self.bodyArray[x].update(temp[0],temp[1])
+                temp = temp1
             self.t = 10
         self.checkInputKey()
         self.catch_egg()
@@ -91,16 +96,6 @@ class SnakeGame(SimpleGame):
         surface.blit(self.show_score, (10,10))
         for x in range(0,len(self.bodyArray)):
             self.bodyArray[x].render(surface)
-            #if x == 0:
-             #   if self.player.vx != 0:
-              #      self.bodyArray[x].render(surface , self.player.getX()+self.player.vx , self.player.getY())
-               # if self.player.vy != 0:
-                #    self.bodyArray[x].render(surface , self.player.getX() , self.player.getY()+self.player.vy)
-            #else :
-             #   if self.player.vx != 0:
-              #      self.bodyArray[x].render(surface , self.bodyArray[x-1].x+self.player.vx , self.bodyArray[x-1].y)
-               # if self.player.vy != 0:
-                #    self.bodyArray[x].render(surface , self.bodyArray[x-1].x , self.bodyArray[x-1].y+self.player.vy)
         #print "render"
 
     def write_score(self):

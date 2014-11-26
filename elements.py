@@ -52,13 +52,9 @@ class Body(object):
     def render(self, surface):   
         pygame.draw.rect(surface,self.color,(self.x,self.y,25,25))    
 
-    def update(self,player):
-        pass
-    def getY(self):
-        return self.y
-    
-    def getX(self):
-        return self.x
+    def update(self,x,y):
+        self.x = x
+        self.y = y
 
 class Egg(object):
     def __init__(self, radius, color, pos):
@@ -87,13 +83,3 @@ class Bomb(object):
     def newPos(self,x,y):
         self.x = random.randint(25,x)
         self.y = random.randint(25,y)
-    
-#class MyThread(Thread):
-#    def __init__(self,player, surface):
-#        Thread.__init__(self)
-#        self.player = player
-#        self.surface = surface
-#    def run(self):
-#        Player.render_position(self.player, self.surface)
-
-
