@@ -44,9 +44,9 @@ class Player(object):
         return self.y
 
 class Body(object):
-    def __init__(self,color):
-        self.x = 25
-        self.y = 25
+    def __init__(self,color,x,y):
+        self.x = x
+        self.y = y
         self.color = color
 
     def render(self, surface):   

@@ -11,8 +11,9 @@ class SnakeGame(SimpleGame):
     YELLOW = pygame.Color('yellow')
     RED = pygame.Color('red')
     V = 25
+    WINDOW_SIZE = (800,600)
     def __init__(self):
-        super(SnakeGame, self).__init__('Snake', SnakeGame.BLACK, window_size=(800,600))
+        super(SnakeGame, self).__init__('Snake', SnakeGame.BLACK, window_size=SnakeGame.WINDOW_SIZE)
         self.initPlayer()
         self.initEgg()
         self.initBomb()
@@ -51,27 +52,37 @@ class SnakeGame(SimpleGame):
         if self.t <= 0:
             temp = (self.player.x, self.player.y)
             self.player.update()
-            for x in range(0,len(self.bodyArray)):
-                temp1 = (self.bodyArray[x].x, self.bodyArray[x].y)
-                self.bodyArray[x].update(temp[0],temp[1])
-                temp = temp1
+            self.body_update(temp)
             self.t = 10
+            self.catch_body()
         self.checkInputKey()
         self.catch_egg()
         self.catch_bomb()
+        
        # print "update"
+
+    def catch_body(self):
+        for x in range(0,len(self.bodyArray)):
+            if self.bodyArray[x].x == self.player.x and self.bodyArray[x].y == self.player.y:
+                self.terminate()
+
+    def body_update(self, temp):
+        for x in range(0,len(self.bodyArray)):
+                temp1 = (self.bodyArray[x].x, self.bodyArray[x].y)
+                self.bodyArray[x].update(temp[0],temp[1])
+                temp = temp1
 
     def catch_egg(self):
         if self.player.catch_egg(self.egg):
             #print"catch"
-            self.egg.newPos(800,600)
-            self.bomb.newPos(800,600)
+            self.egg.newPos(SnakeGame.WINDOW_SIZE[0],SnakeGame.WINDOW_SIZE[1])
+            self.bomb.newPos(SnakeGame.WINDOW_SIZE[0],SnakeGame.WINDOW_SIZE[1])
             self.score+=1
             self.write_score()
-            body = Body(SnakeGame.WHITE)
+            body = Body(SnakeGame.WHITE,self.player.x,self.player.y)
             self.bodyArray.append(body)
-            for x in range(0,len(self.bodyArray)):
-                print x
+            #for x in range(0,len(self.bodyArray)):
+            #    print x
             #print self.score
 
     def catch_bomb(self):
@@ -80,13 +91,13 @@ class SnakeGame(SimpleGame):
             #print"catch bomb"
 
     def checkInputKey(self):
-        if self.is_key_pressed(K_UP):
+        if self.is_key_pressed(K_UP) and ((self.player.vy != SnakeGame.V) or (len(self.bodyArray) == 0)):
             self.player.setSpeed(0,-SnakeGame.V)
-        elif self.is_key_pressed(K_DOWN):
+        elif self.is_key_pressed(K_DOWN) and ((self.player.vy != -SnakeGame.V) or (len(self.bodyArray) == 0)):
             self.player.setSpeed(0,SnakeGame.V)
-        elif self.is_key_pressed(K_RIGHT):
+        elif self.is_key_pressed(K_RIGHT) and ((self.player.vx != -SnakeGame.V) or (len(self.bodyArray) == 0)):
             self.player.setSpeed(SnakeGame.V,0)
-        elif self.is_key_pressed(K_LEFT):
+        elif self.is_key_pressed(K_LEFT) and ((self.player.vx != SnakeGame.V) or (len(self.bodyArray) == 0)):
             self.player.setSpeed(-SnakeGame.V,0)
 
     def render(self, surface):
