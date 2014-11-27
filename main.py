@@ -36,11 +36,14 @@ class SnakeGame(SimpleGame):
         self.egg  = Egg( radius=10, 
                          color=SnakeGame.YELLOW, 
                          pos=(250,250))
+        self.egg.newPos(SnakeGame.WINDOW_SIZE[0],SnakeGame.WINDOW_SIZE[1])
+            
 
     def initBomb(self):
         self.bomb = Bomb(radius=10, 
                          color=SnakeGame.RED, 
                          pos=(500,500))
+        self.bomb.newPos(SnakeGame.WINDOW_SIZE[0],SnakeGame.WINDOW_SIZE[1])
 
     def init(self):
         super(SnakeGame, self).init()
@@ -58,7 +61,6 @@ class SnakeGame(SimpleGame):
         self.checkInputKey()
         self.catch_egg()
         self.catch_bomb()
-        
        # print "update"
 
     def catch_body(self):
@@ -99,6 +101,13 @@ class SnakeGame(SimpleGame):
             self.player.setSpeed(SnakeGame.V,0)
         elif self.is_key_pressed(K_LEFT) and ((self.player.vx != SnakeGame.V) or (len(self.bodyArray) == 0)):
             self.player.setSpeed(-SnakeGame.V,0)
+
+        if self.is_key_pressed(K_SPACE):
+            self.bomb.color = SnakeGame.BLACK
+            self.egg.color = SnakeGame.YELLOW
+        else :
+            self.bomb.color = SnakeGame.RED
+            self.egg.color = SnakeGame.BLACK 
 
     def render(self, surface):
         self.player.render(surface)

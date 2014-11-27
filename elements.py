@@ -16,12 +16,7 @@ class Player(object):
         self.vy = speed[1]
 
     def render(self, surface):
-        #MyThread(self, surface).start()
-        #time.sleep(1)
         pygame.draw.rect(surface,self.color,(self.x,self.y,25,25))
-
-    #def render_position(self,surface):
-    #    pygame.draw.rect(surface,self.color,(self.x,self.y,25,25))
 
     def update(self):
         self.x += self.vx
@@ -36,12 +31,6 @@ class Player(object):
 
     def catch_bomb(self, Bomb):
         return (self.x - self.width/2.0) < Bomb.x < (self.x + self.width) and (self.y - self.width/2.0) < Bomb.y < (self.y + self.width)
-
-    def getX(self):
-        return self.x
-
-    def getY(self):
-        return self.y
 
 class Body(object):
     def __init__(self,color,x,y):
@@ -67,8 +56,8 @@ class Egg(object):
         pygame.draw.circle(surface, self.color, (self.x,self.y), self.radius, 0)
 
     def newPos(self,x,y):
-        self.x = random.randint(25,x)
-        self.y = random.randint(25,y)
+        self.x = random.randint(0,x/25)*25 + 10
+        self.y = random.randint(0,y/25)*25 + 10
 
 class Bomb(object):
     def __init__(self, radius, color, pos):
@@ -81,5 +70,5 @@ class Bomb(object):
         pygame.draw.circle(surface, self.color, (self.x,self.y), self.radius, 0)
 
     def newPos(self,x,y):
-        self.x = random.randint(25,x)
-        self.y = random.randint(25,y)
+        self.x = random.randint(0,x/25)*25 + 10
+        self.y = random.randint(0,y/25)*25 + 10
